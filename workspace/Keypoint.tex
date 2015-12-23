@@ -1,0 +1,248 @@
+\documentclass[10pt]{jsarticle}
+\usepackage{amsmath, amssymb}
+\usepackage[dvipdfmx]{graphics,xcolor}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{type1cm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{here}
+\usepackage{fancyhdr}
+\usepackage{lscape} %ページ全体を用いた横向き画像使用時に使用
+
+%マージン設定
+%横
+\setlength{\textwidth}{165truemm}
+\setlength{\hoffset}{-1truein}
+\setlength{\oddsidemargin}{25truemm}
+%縦
+\setlength{\textheight}{257truemm}
+\setlength{\voffset}{-1truein}
+\setlength{\topmargin}{10truemm}
+\setlength{\headheight}{5truemm}
+\setlength{\headsep}{5truemm}
+
+%ページ番号設定
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{\thepage}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+
+%図表番号設定
+%「図4.4.1」みたいにしたかったらsectionをsubsectionに変える
+\makeatletter
+\renewcommand{\figurename}{図}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\@addtoreset{figure}{section}
+\makeatother
+%表番号設定
+\makeatletter
+\renewcommand{\tablename}{表}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\@addtoreset{table}{section}
+\makeatother
+
+%箇条書き表示設定
+\renewcommand{\labelenumi}{(\arabic{enumi})}%第1階層
+\renewcommand{\labelenumii}{(\roman{enumii})}%第2階層
+
+\begin{document}
+\begin{enumerate}
+\setlength{\parindent}{1zw}
+\setlength{\itemsep}{10pt}
+\item\textbf{電子回路が「線形である」とか「非線形である」と言う場合、その意味を説明せよ。}
+
+電子回路が「線形である」とは、入力と出力が比例関係を満たすような回路である。これを満たさないものが「非線形である」という。
+
+\item\textbf{!「非線形歪」および「線形歪」はそれぞれ電子回路が持つどのような特性が原因となって発生するのか。}
+
+
+
+\item\textbf{!矩形波(またはそれを組み合わせた波形)のフーリエ変換あるいはフーリエ級数はどのようになるか。}
+
+
+
+\item\textbf{インパルスはどのような信号波形か。また、そのフーリエ変換はどのように表されるか。}
+
+インパルスとは、面積$1$を維持しつつパルス幅$\Delta t$を限りなく$0$に近づけた波形である。インパルスは以下のように定義されるデルタ関数$\delta(x)$として表すことができる。
+\begin{align}
+\delta(x)=0&\hspace{3cm}(x\neq0)\\
+\int_{\Delta t} \delta(x) dx = 1&
+\end{align}
+
+\item\textbf{線形システムのインパルス応答が時間$t$の関数$h(t)$として表されるとき、任意の入力信号関数$f(t)$に対する出力信号$g(t)$はどのように表すことができるか。}
+
+ある時間$t=\tau$を中心として持ち、面積が$f(\tau)\Delta t$である時間幅の極めて小さいパルスに対する出力は$h(t-\tau)f(\tau)\Delta t$となる。$0 \leq t \leq \tau$の間には$n$個の$\Delta t$が存在するとすると、$\tau=n\Delta t$と表せるから、出力は$h(t-n\Delta t)f(n\Delta t)\Delta t$と表せる。出力信号$g(t)$は、全てのパルスに対する出力を合成したものであるから、
+\begin{align}
+g(t)=\sum_{n=-\infty}^\infty h(t-n\Delta t)f(n\Delta t)\Delta t\notag
+\end{align}
+となる。$\Delta t \to 0$において、$n \Delta t \to \tau$、$\Delta t \to d\tau$とみなせるから、
+\begin{align}
+g(t)&=\lim_{\Delta t \to 0} \sum_{n=-\infty}^\infty h(t-n\Delta t)f(n\Delta t)\Delta t\notag\\
+&=\int_{-\infty}^\infty h(t-\tau)f(\tau)d\tau
+\end{align}
+と表せる。
+
+\item\textbf{時間を$t$、周波数を$f$と表すとき、$F(f)$は$f(t)$のフーリエ変換であり、$f(t)$は$F(f)$のフーリエ逆変換であるとする。これらの関係を積分を用いた二つの数式により表せ。}
+\begin{align}
+f(t)=\int_{-\infty}^\infty F(f)e^{j2\pi ft} df\\
+F(f)=\int_{-\infty}^\infty f(t)e^{-j2\pi ft} dt
+\end{align}
+
+\item\textbf{時間を$t$、周波数を$f$と表すとき、線形システムの入力$f(t)$に関するフーリエ変換を$F(f)$、出力$g(t)$に関するフーリエ変換を$G(f)$とすると、伝達関数$H(f)$はどのように表されるか。また、$H(f)$を逆フーリエ変換して得られる波形はなんと呼ばれるか。}
+
+$F(f)$、$G(f)$、$H(f)$に対しては、以下のような関係が成り立つ。
+\begin{align}
+G(f)&=F(t) \cdot H(f)\\
+H(f)&=\frac{G(f)}{F(f)} \label{H(f)}
+\end{align}
+また、$H(f)$はインパルス応答$h(t)$とフーリエ変換対の関係にある。
+
+
+\item\textbf{線形歪を発生させないためには、電子回路の伝達関数をどのように表さなければならないか。}
+
+入力信号を出力信号を比較して、それらの間に比例関係があれば、増幅器によってレベルの違いを修復できる。このとき、線形歪はないといえる。
+
+線形歪がないとき、入力$x(t)$と出力$y(t)$の間にはレベル比$k$、位相$\tau$を考慮して、
+\begin{align}
+y(t)=kx(t-\tau)
+\end{align}
+と表せる。$x(t)$、$y(t)$のフーリエ変換を$X(f)$、$Y(f)$とすると、
+\begin{align}
+Y(f)=kX(f)e^{-2\pi f \tau}
+\end{align}
+と表せる。すなわち、伝達関数$H(f)$は式(\ref{H(f)})から、
+\begin{align}
+H(f)=\frac{kX(f)e^{-2\pi f \tau}}{X(f)}=ke^{-2\pi f \tau}
+\end{align}
+このとき、$|H(f)|=k$、$\theta (f) = -2\pi f \tau$と表し、これらを\textbf{無歪条件}という。
+
+\item\textbf{ガウス雑音の瞬時の値を$x$とするとき、確率密度関数$p$はどのようになるか。}
+
+$p$は正規分布と同じ形で表され、
+\begin{align}
+p(x)=\frac{1}{\sqrt{2 \pi \sigma}}\exp({\frac{(x-m)^2}{2\sigma^2}})
+\end{align}
+である。ここでは$ｍ$は$x$の平均値であり、$\sigma$は$x$の分散である。
+
+\item\textbf{白色雑音とはどのような雑音か。}
+
+電力スペクトル密度が全ての周波数において一定値をとる雑音を白色雑音と呼ぶ。白色雑音の電力スペクトル密度$S_N(f)$は
+\begin{align}
+S_N(f)=\frac{N_0}{2}\mathrm{[W/Hz]}
+\end{align}
+
+\item\textbf{信号対雑音電力比とは何を表すための指標か。}
+
+信号対雑音電力比(S/N)は信号のレベルと雑音のレベルの相対比、すなわち信号と雑音が持つ平均電力の比で表される。信号$f(t)$と雑音$n(t)$のS/Nは
+\begin{align}
+S/N=\frac{\{\int^T_0f(t)^2dt\}/T}{\{\int^T_0n(t)^2dt\}/T}=\frac{\overline{f(t)^2}}{\overline{n(t)^2}}
+\end{align}
+と表される。また、S/Nを表現する際にはデシベル表示が多く用いられ、
+\begin{align}
+10\log_{10}(S/N)\mathrm{[dB]}
+\end{align}
+と表せる。
+
+\item\textbf{!振幅変調をするには、搬送波と変調信号とを相互にどのような処理をする回路が必要か。}
+
+
+
+\item\textbf{!上側波帯および下側波帯について100文字から150文字の範囲で説明せよ。}
+
+
+
+\item\textbf{時間を$t$としたとき、搬送波の瞬時レベル(電圧又は電流)が$A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c})$、変調信号が$f(t) = A_\mathrm{m}\cos(2\pi f_\mathrm{m} t + \theta_\mathrm{m})$であるとする。変調指数が50\%であるときのAM信号を数式で表現せよ。}
+
+\begin{align}
+f_\mathrm{AM}(t)&=(1+m_\mathrm{AM}\frac{f(t)}{|f(t)|_\mathrm{MAX}})\times A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c})\notag\\
+&=\{1+m_\mathrm{AM}\cos(2\pi f_\mathrm{m} t + \theta_\mathrm{m})\}\times A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c})\notag\\
+&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) +A_\mathrm{c} m_\mathrm{AM}\cos(2\pi f_\mathrm{m} t+ \theta_\mathrm{m})\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c})\notag\\
+&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) + \frac{A_\mathrm{c}m_\mathrm{AM}}{2}\{\cos(2 \pi (f_\mathrm{c} + f_\mathrm{m}) t+ \theta_\mathrm{c} + \theta_\mathrm{m}) + \cos(2 \pi (f_\mathrm{c} - f_\mathrm{m}) t+ \theta_\mathrm{c} - \theta_\mathrm{m})\}\notag\\
+&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) + \frac{A_\mathrm{c}}{4}\cos(2 \pi (f_\mathrm{c} + f_\mathrm{m}) t+ \theta_\mathrm{c} + \theta_\mathrm{m}) + \frac{A_\mathrm{c}}{4}\cos(2 \pi (f_\mathrm{c} - f_\mathrm{m}) t+ \theta_\mathrm{c} - \theta_\mathrm{m})
+\end{align}
+
+\item\textbf{上記において変調指数が150\%とするときについて、同様に答えよ。}
+
+\begin{align}
+f_\mathrm{AM}(t)&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) + \frac{A_\mathrm{c}m_\mathrm{AM}}{2}\{\cos(2 \pi (f_\mathrm{c} + f_\mathrm{m}) t+ \theta_\mathrm{c} + \theta_\mathrm{m}) + \cos(2 \pi (f_\mathrm{c} - f_\mathrm{m}) t+ \theta_\mathrm{c} - \theta_\mathrm{m})\}\notag\\
+&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) + \frac{3A_\mathrm{c}}{4}\cos(2 \pi (f_\mathrm{c} + f_\mathrm{m}) t+ \theta_\mathrm{c} + \theta_\mathrm{m}) + \frac{3A_\mathrm{c}}{4}\cos(2 \pi (f_\mathrm{c} - f_\mathrm{m}) t+ \theta_\mathrm{c} - \theta_\mathrm{m})
+\end{align}
+
+\item\textbf{!時間を$t$としたとき、搬送波の瞬時レベル(電圧又は電流)が$A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c})$、変調信号が$f(t) = A_\mathrm{m}\cos(2\pi f_\mathrm{m} t + \theta_\mathrm{m})$であるとする。変調指数が$m_\mathrm{AM}$であるときのAM信号を数式で表現せよ。}
+
+\begin{align}
+f_\mathrm{AM}(t)&=A_\mathrm{c}\cos(2\pi f_\mathrm{c} t + \theta_\mathrm{c}) + \frac{A_\mathrm{c}m_\mathrm{AM}}{2}\{\cos(2 \pi (f_\mathrm{c} + f_\mathrm{m}) t+ \theta_\mathrm{c} + \theta_\mathrm{m}) + \cos(2 \pi (f_\mathrm{c} - f_\mathrm{m}) t+ \theta_\mathrm{c} - \theta_\mathrm{m})\}\notag\\
+\end{align}
+
+\item\textbf{!リング変調器の構造を示せ。また、各ポートにおける入出力信号波形の例を示せ。}
+
+
+
+\item\textbf{!}
+
+
+
+\item\textbf{SSBとはどのような変調方式であるか。通常のAMと比べたときSSBが持っている長所を2つ述べよ。}
+
+SSBはSingle Side Bandの略であり、単側波帯通信と訳される。通常のAMでは搬送波および搬送波を中心とする側波帯が上下両方に存在する(それぞれ上側波帯、下側波帯と呼ぶ)。この搬送波成分と一方の側波帯成分を除去する変調方式をSSBという。
+通常のAMにおける2つの側波帯はそれぞれ同じ情報を担っている。SSBではそのうち一方の側波帯のみを取り出すため、占有する周波数帯域を半分にできる長所がある。また、送信電力が経済的であり、変調時にのみ出力するので電力効率が良い。
+
+\item\textbf{AMにおける同期検波と包絡線検波について原理の違いを、図を用いて説明せよ。前者と比較したとき、後者が持つ長所と短所を1つずつ述べよ。}
+
+同期検波は受信信号と搬送波と同期した信号をミキサに入力し、ミキサ出力をLPFに通ずることで復調信号を得る。このとき、受信側で用意する信号は搬送波の周波数および位相と一致しなくてはならないため、高度な技術が必要となる。それに対し包絡線検波は簡単なRC回路により実現できる。これは包絡線検波の長所であるが、その反面SSBに用いることができないという短所を持つ。
+
+\item\textbf{変調をしていないときの搬送波が$A_\mathrm{c}\cos(2 \pi f_\mathrm{c} t)$、変調信号が$A_\mathrm{m}\cos(2 \pi f_\mathrm{m} t)$であるとき、搬送波を周波数最大偏移$\Delta f$で変調したときの信号波形を数式で表せ。}
+
+\begin{align}
+f_\mathrm{FM}(t) &= A_\mathrm{c}\cos\Biggl[\int_0^t 2 \pi f_c \{ 1 + k_\mathrm{FM} \frac{f(\tau)}{|f(\tau)|_\mathrm{MAX}}\}d\tau\Biggl] \notag \\
+& =  A_\mathrm{c}\cos\Biggl[ 2 \pi f_\mathrm{c} t + 2 \pi k_\mathrm{FM} f_\mathrm{c} \int_0^t \frac{f(\tau)}{|f(\tau)|_\mathrm{MAX}}d\tau \Biggl] \notag \\
+\intertext{$\Delta f = k_\mathrm{FM} f_\mathrm{c}$とおくと、}
+& =  A_\mathrm{c}\cos\Biggl[ 2 \pi f_\mathrm{c} t + 2 \pi \Delta f \int_0^t \cos(2 \pi f_\mathrm{m} \tau)d\tau \Biggl] \notag \\
+& = A_\mathrm{c}\cos\Biggl[ 2 \pi f_\mathrm{c} t + 2 \pi \Delta f \times \frac{1}{2 \pi f_\mathrm{m}}\sin(2 \pi f_\mathrm{m} t) \Biggl] \notag \\
+& = A_\mathrm{c}\cos\Biggl[ 2 \pi f_\mathrm{c} t + \frac{\Delta f}{f_\mathrm{m}}\sin(2 \pi f_\mathrm{m} t) \Biggl] \notag \\
+& = A_\mathrm{c}\Biggl[\cos(2 \pi f_\mathrm{c} t) \cos\Bigl(\frac{\Delta f}{f_\mathrm{m}}\sin(2 \pi f_\mathrm{m} t)\Bigl) - \sin(2 \pi f_\mathrm{c} t) \sin \Bigl(\frac{\Delta f}{f_\mathrm{m}}\sin(2 \pi f_\mathrm{m} t)\Bigl) \Biggl] \notag \\
+& = A_\mathrm{c} \sum_{n = -\infty}^\infty J_n (\frac{\Delta f}{f_\mathrm{m}}) \cos \Biggl[ (2 \pi f_\mathrm{c} + 2 n \pi f_\mathrm{m}) t + \frac{n \pi}{2} \Biggl]
+\end{align}
+
+\item\textbf{上記において$\Delta f << f_\mathrm{m}$としたとき、FM変調波形は搬送波を含めた3つの正弦波に分解できる。それらを複素平面上に図示せよ。また、同様にAMについても図示し、両者を比べたとき、それらが持つ違いを述べよ。}
+
+$m_\mathrm{FM}=\frac{\Delta f}{f_\mathrm{m}}$とおく。仮定より、$m_\mathrm{FM}$は極めて小さいから、
+\begin{align}
+&J_0 (m_\mathrm{FM}) \sim 1 \notag \\
+&J_1 (m_\mathrm{FM}) = -J_{-1} (m_\mathrm{FM}) \sim \frac{m_\mathrm{FM}}{2} \notag \\
+&J_n (m_\mathrm{FM}) \sim 0 \hspace{1cm} (n \geq 2) \notag 
+\end{align}
+\begin{align}
+\intertext{よって、}
+f_\mathrm{FM}(t) & = A_\mathrm{c} \cos (2 \pi f_\mathrm{c} t) +\frac{A_\mathrm{c} m_\mathrm{FM}}{2}\cos\Biggl[ 2 \pi (f_\mathrm{c} + f_\mathrm{m}) + \frac{\pi}{2}\Biggl] - \frac{A_\mathrm{c} m_\mathrm{FM}}{2}\cos\Biggl[ 2 \pi (f_\mathrm{c} - f_\mathrm{m}) - \frac{\pi}{2}\Biggl] \notag \\
+& = A_\mathrm{c} \cos (2 \pi f_\mathrm{c} t) +\frac{A_\mathrm{c} m_\mathrm{FM}}{2}\cos\Biggl[ 2 \pi (f_\mathrm{c} + f_\mathrm{m}) + \frac{\pi}{2}\Biggl] + \frac{A_\mathrm{c} m_\mathrm{FM}}{2}\cos\Biggl[ 2 \pi (f_\mathrm{c} - f_\mathrm{m}) + \frac{\pi}{2}\Biggl]
+\end{align}
+
+\item\textbf{変調信号が正弦波であるとき、FMとAMでは変調波のスペクトルに違いがみられる。特徴的な違いを2つ述べよ。}
+
+振幅変調において変調信号が正弦波であるとき、搬送波の両側に1つずつ側波帯信号が発生する。それに対して、周波数変調において変調信号が正弦波であるとき、搬送波の両側に無限個の側波帯信号が発生する。
+
+\item\textbf{!FM復調器の構造と動作原理を図を用いて説明せよ。}
+
+
+\item\textbf{FMにおいて、側波帯の振幅を数式で表すときに必要な関数の名前を述べよ。}
+
+側波帯の振幅を数式で表すときに必要な関数はベッセル関数$J_n(x)$であり、以下のように表される。
+\begin{align}
+J_n(x) = \frac{1}{2 \pi} \int_{- \pi}^\pi e^{ix \sin \theta} \cdot e^{-in \theta} d\theta
+\end{align}
+
+\item\textbf{!伝送路の雑音が白色雑音であるとき、AMとFMでは、復調後の雑音電力スペクトルに違いがある。どのような違いがあるか。}
+
+
+
+\item\textbf{!受信機出力において、FMではAMに比べて雑音を抑えることができる。その理由を定性的に述べよ。}
+
+
+
+\item\textbf{}
+
+\end{enumerate}
+\end{document}
